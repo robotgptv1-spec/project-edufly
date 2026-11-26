@@ -1,0 +1,22 @@
+[
+    {
+        "question": "What is Python?",
+        "answer": "Python is a high-level programming language."
+    },
+    {
+        "question": "What is a variable?",
+        "answer": "A variable is a named memory reference used to store data."
+    },
+    {
+        "question": "What is a list?",
+        "answer": "A list is an ordered and mutable collection in Python."
+    },
+    {
+        "question": "What is a tuple?",
+        "answer": "A tuple is an ordered and immutable collection in Python."
+    },
+    {
+        "question": "What is a function?",
+        "answer": "A function is a reusable block of code that performs a specific task."
+    }
+]

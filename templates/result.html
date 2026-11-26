@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resume Analysis Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page-shell result-shell">
+        <section class="hero compact">
+            <div class="brand">AI Resume <span>Screening</span></div>
+            <h1>Analysis result</h1>
+            <p>{{ filename }}</p>
+        </section>
+
+        <section class="result-grid">
+            <article class="card score-card">
+                <span class="eyebrow">Overall match</span>
+                <div class="score-ring {{ verdict_class }}" style="--angle: {{ score * 3.6 }}deg">
+                    <div>
+                        <strong>{{ score }}%</strong>
+                        <span>match</span>
+                    </div>
+                </div>
+                <div class="verdict {{ verdict_class }}">{{ verdict }}</div>
+            </article>
+
+            <article class="card details-card">
+                <h2>Skill analysis</h2>
+
+                <h3>Matched skills</h3>
+                {% if matched_skills %}
+                    <div class="tag-list">
+                        {% for skill in matched_skills %}
+                            <span class="tag matched">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="muted">No directly matched skills were detected.</p>
+                {% endif %}
+
+                <h3>Missing from resume</h3>
+                {% if missing_skills %}
+                    <div class="tag-list">
+                        {% for skill in missing_skills %}
+                            <span class="tag missing">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="muted">No required skills from the job description are missing.</p>
+                {% endif %}
+
+                <h3>Resume skills found</h3>
+                {% if resume_skills %}
+                    {% for category, skills in resume_skills.items() %}
+                        <div class="skill-category">
+                            <strong>{{ category }}</strong>
+                            <span>{{ skills | join(", ") }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="muted">No known skills were detected.</p>
+                {% endif %}
+
+                <a class="secondary-button" href="{{ url_for('home') }}">Analyze another resume</a>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

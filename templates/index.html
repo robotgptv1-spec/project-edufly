@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Resume Screening</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero">
+            <div class="brand">AI Resume <span>Screening</span></div>
+            <h1>Find the right candidate faster</h1>
+            <p>Upload a resume and compare it with a job description using AI-assisted matching.</p>
+        </section>
+
+        <section class="card">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form id="analysis-form" action="{{ url_for('analyze') }}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="resume">Resume</label>
+                    <label class="upload-box" for="resume">
+                        <strong id="file-name">Choose a PDF or DOCX file</strong>
+                        <span>Maximum size: 10 MB</span>
+                    </label>
+                    <input id="resume" name="resume" type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="job-description">Job description</label>
+                    <textarea id="job-description" name="job_description" rows="9" minlength="20" placeholder="Paste the required skills, responsibilities, and experience..." required></textarea>
+                </div>
+
+                <button class="primary-button" type="submit">
+                    <span>Analyze resume</span>
+                </button>
+            </form>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
